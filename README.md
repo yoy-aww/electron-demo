@@ -1,4 +1,4 @@
-# BR7 Game Platform Desktop Application
+# Electron Vue 3 Starter
 
 ## 项目介绍
 
