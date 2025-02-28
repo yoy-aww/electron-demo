@@ -12,7 +12,7 @@ function createWindow() {
       contextIsolation: false
     },
     // 设置窗口图标
-    icon: path.join(__dirname, 'assets/icon.png')
+    icon: path.join(__dirname, isDev ? 'assets/icon.png' : '../build/icon.png')
   });
 
   // 开发环境使用 Vite 开发服务器
@@ -20,7 +20,7 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:5173');
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile('dist/index.html'); // 生产环境加载打包后的文件
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html')); // 使用绝对路径
   }
 }
 

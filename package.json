@@ -8,32 +8,54 @@
         "dev": "vite",
         "build": "vite build",
         "electron:dev": "concurrently \"npm run dev\" \"cross-env NODE_ENV=development electron .\"",
-        "electron:build": "npm run build && electron-builder",
+        "clean": "rimraf dist dist_electron \"%LOCALAPPDATA%\\electron-builder\\Cache\"",
+        "electron:build": "npm run clean && npm run build && electron-builder",
         "preview": "vite preview"
 	},
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "electron": "^28.0.0",
-        "electron-builder": "^24.9.1",
+        "electron-builder": "^25.1.8",
         "@vitejs/plugin-vue": "^5.0.0",
         "vite": "^5.0.0",
         "concurrently": "^8.0.1",
-        "cross-env": "^7.0.3"
+        "cross-env": "^7.0.3",
+        "rimraf": "^5.0.0",
+        "wait-on": "^7.2.0"
     },
 	"dependencies": {
         "vue": "^3.3.0"
     },
 	"build": {
 		"appId": "com.electron.aww",
+		"asar": false,
+		"npmRebuild": false,
 		"win": {
-			"target": "nsis"
+			"target": ["portable"],
+			"artifactName": "${productName}-${version}.${ext}",
+			"sign": null
 		},
+		"forceCodeSigning": false,
 		"mac": {
 			"target": "dmg"
 		},
 		"linux": {
 			"target": "AppImage"
+		},
+		"directories": {
+			"output": "dist_electron",
+			"buildResources": "build"
+		},
+		"files": [
+			"dist/**/*",
+			"package.json",
+			"main.js"
+		],
+		"nsis": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"createDesktopShortcut": true
 		}
 	}
 }

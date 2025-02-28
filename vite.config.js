@@ -13,10 +13,13 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         assetsDir: '.',
+        emptyOutDir: true,
         rollupOptions: {
             output: {
-                format: 'cjs'
+                format: 'cjs',
+                manualChunks: undefined
             }
-        }
+        },
+        chunkSizeWarningLimit: 600
     }
 }) 
